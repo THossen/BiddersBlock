@@ -1,7 +1,7 @@
 const Home = () => {
     return (
-        <div>
-            Work in progress
+        <div className="font-bold text-5xl text-center py-8">
+            Application page
         </div>
     )
 }

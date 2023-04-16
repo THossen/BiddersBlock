@@ -1,9 +1,9 @@
-const Hero = () => {
+const Register = () => {
     return (
         <div className="font-bold text-5xl text-center py-8">
-            Hero section of landing page
+            User Registration Page
         </div>
     )
 }
 
-export default Hero
+export default Register
