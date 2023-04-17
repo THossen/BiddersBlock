@@ -1,4 +1,4 @@
-const Home = () => {
+const Browse = () => {
     return (
         <div className="font-bold text-5xl text-center py-8">
             Application page
@@ -6,4 +6,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Browse

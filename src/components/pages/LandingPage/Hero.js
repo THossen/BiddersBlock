@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
     return (
-        <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-r from-violet-800 to-purple-600">
+        <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-r from-violet-800 to-pink-500">
             <h1 className="font-bold text-5xl text-white text-center mb-8">The Premier Destination for Online Auctions</h1>
             <p className="text-lg text-white text-center mb-12">Bid on your favorite items from the comfort of your own home</p>
             <Link to="/Register" 

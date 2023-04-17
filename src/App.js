@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/layout/Navbar';
 import Body from './components/layout/Body';
 import LandingPage from './components/pages/LandingPage/LandingPage';
-import Home from './components/pages/Home/Home';
+import Browse from './components/pages/Browse/Browse';
 import Login from './components/pages/Login/Login';
 import Register from './components/pages/Register/Register';
 import Footer from './components/layout/Footer';
@@ -16,7 +16,7 @@ function App() {
       <Body>
         <Routes>
           <Route path='/' element= {<LandingPage />} />
-          <Route path='/Home' element = {<Home/>} />
+          <Route path='/Browse' element = {<Browse/>} />
           <Route path='/Login' element = {<Login/>} />
           <Route path='/Register' element = {<Register/>} />
           <Route path='/AboutUs' element = {<AboutUs/>} />
