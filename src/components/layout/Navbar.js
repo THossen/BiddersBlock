@@ -18,13 +18,13 @@ const NavBar = () => {
         </Link>
         <Link
           to="/Register"
-          className="inline-block px-3 py-2 bg-cyan-500 hover:bg-sky-700 rounded-3xl hover:scale-110 duration-200 ease-in-out"
+          className="inline-block px-6 py-2 bg-cyan-500 hover:bg-sky-700 rounded-3xl hover:scale-110 duration-200 ease-in-out"
         >
           Register
         </Link>
         <Link
           to="/LoginPage"
-          className="inline-block px-3 py-2 bg-cyan-500 hover:bg-sky-700 rounded-3xl hover:scale-110 duration-200 ease-in-out"
+          className="inline-block px-6 py-2 bg-cyan-500 hover:bg-sky-700 rounded-3xl hover:scale-110 duration-200 ease-in-out"
         >
           Login
         </Link>
