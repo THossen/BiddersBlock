@@ -1,7 +1,11 @@
 import Hero from "./Hero"
+import HowItWorks from "./HowItWorks"
 const LandingPage = () => {
     return (
-        <Hero/>
+        <>
+            <Hero />
+            <HowItWorks />
+        </>
     )
 }
 
