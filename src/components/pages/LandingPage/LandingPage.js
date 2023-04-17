@@ -1,12 +1,12 @@
-import Hero from "./Hero"
-import HowItWorks from "./HowItWorks"
+import Hero from "./Hero";
+import HowItWorks from "./HowItWorks";
 const LandingPage = () => {
-    return (
-        <>
-            <Hero />
-            <HowItWorks />
-        </>
-    )
-}
+  return (
+    <div>
+      <Hero />
+      <HowItWorks />
+    </div>
+  );
+};
 
-export default LandingPage
+export default LandingPage;
