@@ -11,10 +11,10 @@ const NavBar = () => {
       </Link>
       <nav className="space-x-4 md.block">
         <Link
-          to="/Browse"
+          to="/Auctions"
           className="inline-block ml-auto hover:text-cyan-500 hover:scale-110 duration-200 ease-in-out"
         >
-          Browse
+          Auctions
         </Link>
         <Link
           to="/Register"
