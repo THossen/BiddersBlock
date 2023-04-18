@@ -9,6 +9,7 @@ const Hero = () => {
     <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-b from-violet-800 to-pink-500">
       <img
         src="Logo's/SingleCube.png"
+        alt="Blue Cube"
         style={{ width: "300px", height: "auto", marginBottom: "24px" }}
       />
       <h1 className="font-bold text-5xl text-white text-center mb-8">
