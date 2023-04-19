@@ -4,7 +4,7 @@ import Body from "./components/layout/Body";
 import LandingPage from "./components/pages/LandingPage/LandingPage";
 import Auctions from "./components/pages/Auctions/Auctions";
 import LoginPage from "./components/pages/Login/LoginPage";
-import Register from "./components/pages/Register/Register";
+import Register from "./components/pages/Register/RegisterPage";
 import Footer from "./components/layout/Footer";
 import Contact from "./components/pages/Contact/Contact";
 import AboutUs from "./components/pages/About Us/AboutUs";
