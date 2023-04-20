@@ -3,7 +3,6 @@ import AuctionCard from "./AuctionCard";
 import { Link } from "react-router-dom";
 import AuctionData from "./AuctionData";
 
-
 const Auctions = () => {
   return (
     <div className="flex flex-wrap justify-center items-center p-4 space-x-4 space-y-4">
@@ -22,4 +21,3 @@ const Auctions = () => {
 };
 
 export default Auctions;
-

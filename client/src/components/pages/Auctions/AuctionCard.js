@@ -20,4 +20,3 @@ function AuctionCard(props) {
 }
 
 export default AuctionCard;
-

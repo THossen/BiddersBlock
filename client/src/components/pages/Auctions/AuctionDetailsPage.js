@@ -22,12 +22,18 @@ function AuctionDetailsPage() {
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col md:flex-row gap-8">
         <div className="md:w-1/2">
-          <img className="h-96 object-cover w-full rounded-lg shadow-md" src={itemPicture} alt={itemName} />
+          <img
+            className="h-96 object-cover w-full rounded-lg shadow-md"
+            src={itemPicture}
+            alt={itemName}
+          />
         </div>
         <div className="md:w-1/2">
           <h1 className="text-4xl font-bold">{itemName}</h1>
           <p className="mt-4 text-xl">{itemDescription}</p>
-          <p className="mt-8 text-3xl font-bold text-red-500">Starting bid: ${currentBid}</p>
+          <p className="mt-8 text-3xl font-bold text-red-500">
+            Starting bid: ${currentBid}
+          </p>
           <form className="mt-8" onSubmit={handleBidSubmit}>
             <div className="flex">
               <label htmlFor="bid-amount" className="text-xl mr-4">
@@ -48,7 +54,10 @@ function AuctionDetailsPage() {
                 </div>
               </div>
             </div>
-            <button type="submit" className="mt-4 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-cyan-500 hover:bg-sky-700">
+            <button
+              type="submit"
+              className="mt-4 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-cyan-500 hover:bg-sky-700"
+            >
               Submit Bid
             </button>
           </form>
@@ -59,5 +68,3 @@ function AuctionDetailsPage() {
 }
 
 export default AuctionDetailsPage;
-
-
