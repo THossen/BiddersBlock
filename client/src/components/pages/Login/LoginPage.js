@@ -6,7 +6,7 @@ import Login from "./Login";
 const LoginPage = ({ username, password }) => {
   return (
     <AuthProvider>
-      <div className="bg-gradient-to-b from-violet-500 to-white min-h-screen flex justify-center items-center">
+      <div className="bg-gradient-to-b from-cyan-500 to-white min-h-screen flex justify-center items-center">
         <div className="rounded-lg shadow-lg w-full md:max-w-3xl md:flex bg-white">
           <div className="bg-cyan-500 py-8 px-6 md:p-12 md:w-1/2 flex items-center justify-center rounded-l-lg">
             <h2 className="text-4xl font-bold text-white md:text-5xl">
