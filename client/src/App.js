@@ -8,6 +8,7 @@ import Register from "./components/pages/Register/RegisterPage";
 import Footer from "./components/layout/Footer";
 import Contact from "./components/pages/Contact/Contact";
 import AboutUs from "./components/pages/About Us/AboutUs";
+import AuctionDetailsPage from "./components/pages/Auctions/AuctionDetailsPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/Contact" element={<Contact />} />
+          <Route path="/auctions/:id" element={<AuctionDetailsPage />} />
         </Routes>
       </Body>
       <Footer />
