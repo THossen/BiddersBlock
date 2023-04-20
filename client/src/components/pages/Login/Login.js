@@ -1,41 +1,32 @@
-// login.js
-import React, { useState } from 'react';
-import LoginForm from './LoginForm';
+import React, { useState, useContext } from "react";
+import AuthContext from "../../auth/AuthContext";
+import LoginForm from "./LoginForm";
 
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Login = ({ username, password }) => {
+  const [usernameInput, setUsernameInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const { login } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === 'myusername' && password === 'mypassword') {
-      setIsLoggedIn(true);
+    if (usernameInput === username && passwordInput === password) {
+      login();
+      setUsernameInput("");
+      setPasswordInput("");
     } else {
-      alert('Invalid username or password.');
+      alert("Invalid username or password.");
     }
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
   };
 
   return (
     <div>
-      {isLoggedIn ? (
-        <div>
-          <p>You are logged in!</p>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <LoginForm
-          username={username}
-          password={password}
-          setUsername={setUsername}
-          setPassword={setPassword}
-          handleLogin={handleLogin}
-        />
-      )}
+      <LoginForm
+        username={usernameInput}
+        password={passwordInput}
+        setUsername={setUsernameInput}
+        setPassword={setPasswordInput}
+        handleLogin={handleLogin}
+      />
     </div>
   );
 };

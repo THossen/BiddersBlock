@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
 const LoginForm = ({
   username,
   password,
@@ -8,81 +5,71 @@ const LoginForm = ({
   setPassword,
   handleLogin,
 }) => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
-    <div className="flex flex-col justify-center items-center mt-16">
-      <div className="w-96 h-96 bg-gradient-to-b from-cyan-500 to-cyan-600 rounded-t-3xl py-6 px-8 text-white text-center text-3xl font-semibold flex flex-col justify-center">
-        <h1>Welcome to BiddersBlock</h1>
-        <p className="text-gray-50 text-lg">
-          Please login with your user credientials below
-        </p>
+    <form
+      onSubmit={handleLogin}
+      className="mt-8 space-y-6 bg-white rounded-lg shadow-md px-8 py-10"
+    >
+      <div>
+        <label htmlFor="username" className="sr-only">
+          Username
+        </label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          autoComplete="username"
+          required
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="border-gray-400 rounded-md shadow-sm w-full p-2 text-lg"
+          placeholder="Username"
+        />
       </div>
-      <div className="w-96 bg-white rounded-b-3xl py-8 px-8 shadow-lg text-center">
-        <form onSubmit={handleLogin} className="flex flex-col">
-          <div className="mb-4">
-            <label
-              htmlFor="username"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full border-2 border-gray-300 p-3 rounded-lg outline-none focus:border-blue-500"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Password
-            </label>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full border-2 border-gray-300 p-3 rounded-lg outline-none focus:border-blue-500"
-                required
-              />
-              <button
-                type="button"
-                className="mt-1 absolute right-2 top-2 text-gray-500 focus:outline-none mb-1"
-                onClick={toggleShowPassword}
-              >
-                {showPassword ? "Hide" : "Show"}
-              </button>
-            </div>
-          </div>
-          <button
-            type="submit"
-            className="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-16 rounded-full self-center mt-4"
+      <div>
+        <label htmlFor="password" className="sr-only">
+          Password
+        </label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autoComplete="current-password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="border-gray-400 rounded-md shadow-sm w-full p-2 mt-4 text-lg"
+          placeholder="Password"
+        />
+      </div>
+      <div className="flex items-center justify-between mt-8">
+        <label htmlFor="remember_me" className="flex items-center">
+          <input
+            id="remember_me"
+            name="remember_me"
+            type="checkbox"
+            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+          />
+          <span className="ml-2 text-sm text-gray-900">Remember me</span>
+        </label>
+        <div className="text-sm">
+          <a
+            href="#"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
           >
-            Sign in
-          </button>
-        </form>
+            Forgot your password?
+          </a>
+        </div>
       </div>
-      <div className="mt-4">
-        <div className="text-gray-700 text-center">New user?</div>
-        <Link
-          to="/Register"
-          className="text-blue-500 font-semibold hover:underline"
+      <div>
+        <button
+          type="submit"
+          className="bg-indigo-600 hover:bg-indigo-500 text-white py-2 px-4 rounded-md mt-8 w-full"
         >
-          Create Account
-        </Link>
+          Log In
+        </button>
       </div>
-    </div>
+    </form>
   );
 };
 
