@@ -17,7 +17,7 @@ const Hero = () => {
       </h1>
       <p className="text-lg text-white text-center mb-12">{subheading}</p>
       <Link
-        to="/Register"
+        to="/RegisterPage"
         className="px-3 py-2 bg-cyan-500 hover:bg-sky-700 rounded-3xl hover:scale-110 duration-200 ease-in-out font-bold text-2xl text-white"
       >
         Get Started
