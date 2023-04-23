@@ -9,6 +9,7 @@ import Footer from "./components/layout/Footer";
 import Contact from "./components/pages/Contact/Contact";
 import AboutUs from "./components/pages/About Us/AboutUs";
 import AuctionDetailsPage from "./components/pages/Auctions/AuctionDetailsPage";
+import ProfilePage from "./components/pages/Profile/ProfilePage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/auctions/:id" element={<AuctionDetailsPage />} />
+          <Route path="/ProfilePage/*" element={<ProfilePage />} />
         </Routes>
       </Body>
       <Footer />
