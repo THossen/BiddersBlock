@@ -41,7 +41,7 @@ const Register = () => {
         setErrorMessage(error.message);
       } else {
         // Redirect to login page upon successful registration
-        window.location.href = "/login";
+        window.location.href = "/Login";
       }
     } catch (error) {
       setErrorMessage(error.message);
