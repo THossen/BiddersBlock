@@ -2,6 +2,7 @@ import React from "react";
 import AuctionCard from "./AuctionCard";
 import { Link } from "react-router-dom";
 import AuctionData from "./AuctionData";
+import ListAuctionForm from "./AddAuctionForm";
 
 const Auctions = () => {
   return (
