@@ -31,7 +31,7 @@ const Sidebar = () => {
 
       <div className="">
         <Link
-          to="/ProfilePage/ListAuctionForm"
+          to="/ProfilePage/AddAuctionForm"
           className="flex items-center py-4 pl-6 pr-8 text-lg font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 border-l-4 hover:border-gray-800"
         >
           <span className="mx-4">Your Auctions</span>

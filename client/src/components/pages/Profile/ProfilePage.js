@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import UserInfo from "./UserInfo";
 import AuctionsWon from "./AuctionsWon";
-import ListAuctionForm from "./ListAuctionForm";
+import AddAuctionForm from "../Auctions/AddAuctionForm";
 import Sidebar from "./Sidebar";
 
 const ProfilePage = () => {
@@ -12,7 +12,7 @@ const ProfilePage = () => {
         <Routes>
           <Route path="/UserInfo" element={<UserInfo />} />
           <Route path="/AuctionsWon" element={<AuctionsWon />} />
-          <Route path="/ListAuctionForm" element={<ListAuctionForm />} />
+          <Route path="/AddAuctionForm" element={<AddAuctionForm />} />
         </Routes>
       </div>
     </div>
