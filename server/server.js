@@ -63,7 +63,7 @@ app.post('/register', (req, res) => {
       console.error(err.message);
       res.status(500).json({ error: 'Failed to register user.' });
     } else {
-      console.log(`User ${userName} registered with ID ${this.userID}`);
+      console.log(`User ${userName} is now registered.`);
       res.status(200).json({ message: 'User registered successfully.' });
     }
   });
