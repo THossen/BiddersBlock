@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import RegistrationForm from "./RegistrationForm";
 
 const Register = () => {
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [userFirstname, setFirstName] = useState("");
+  const [userLastname, setLastname] = useState("");
+  const [userAddress, setAddress] = useState("");
+  const [userEmail, setEmail] = useState("");
+  const [userName, setUsername] = useState("");
+  const [userPassword, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleRegistration = async (e) => {
     e.preventDefault();
-    if (password !== confirmpassword) {
+    if (userPassword !== confirmpassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
@@ -27,12 +27,12 @@ const Register = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstname,
-          lastname,
-          address,
-          email,
-          username,
-          password,
+          userName, 
+          userEmail, 
+          userPassword, 
+          userFirstname, 
+          userLastname, 
+          userAddress
         }),
       });
 
@@ -51,12 +51,12 @@ const Register = () => {
   return (
     <div className="bg-white py-8 px-6 shadow rounded-lg">
       <RegistrationForm
-        firstname={firstname}
-        lastname={lastname}
-        address={address}
-        email={email}
-        username={username}
-        password={password}
+        userFirstname={userFirstname}
+        userLastname={userLastname}
+        userAddress={userAddress}
+        userEmail={userEmail}
+        userName={userName}
+        userPassword={userPassword}
         confirmpassword={confirmpassword}
         handleRegistration={handleRegistration}
         setFirstName={setFirstName}

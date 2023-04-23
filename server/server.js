@@ -1,14 +1,5 @@
-/*
-import React from "react";
-
-const server = () => {
-  return <div>server</div>;
-};
-
-export default server;
-*/
-
 const express = require('express');
+const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
@@ -63,30 +54,31 @@ db.all('SELECT * FROM users', [], (err, rows) => {
   });
 
 app.use(express.json());
+app.use(cors());
 
 app.post('/register', (req, res) => {
-  const { username, password, email, firstname, lastname, address } = req.body;
-  db.run('INSERT INTO users (username, password, email, firstname, lastname, address) VALUES (?, ?, ?, ?, ?, ?)', [username, password, email, firstname, lastname, address], function(err) {
+  const { userName, userEmail, userPassword, userFirstname, userLastname, userAddress } = req.body;
+  db.run('INSERT INTO users (userName, userEmail, userPassword, userFirstname, userLastname, userAddress) VALUES (?, ?, ?, ?, ?, ?)', [userName, userEmail, userPassword, userFirstname, userLastname, userAddress], function(err) {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: 'Failed to register user.' });
     } else {
-      console.log(`User ${username} registered with ID ${this.lastID}`);
+      console.log(`User ${userName} registered with ID ${this.userID}`);
       res.status(200).json({ message: 'User registered successfully.' });
     }
   });
 });
 
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  db.get('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, row) => {
+  const { userName, userPassword } = req.body;
+  db.get('SELECT * FROM users WHERE userName = ? AND userPassword = ?', [userName, userPassword], (err, row) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: 'Failed to login.' });
     } else if (!row) {
       res.status(401).json({ error: 'Invalid credentials.' });
     } else {
-      console.log(`User ${username} logged in.`);
+      console.log(`User ${userName} logged in.`);
       res.status(200).json({ message: 'User logged in successfully.' });
     }
   });
