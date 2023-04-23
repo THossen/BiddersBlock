@@ -21,7 +21,7 @@ const Register = () => {
     try {
       // Make API call to register user with the provided data
       // Replace this with your actual API call to register a user
-      const response = await fetch("/api/register", {
+      const response = await fetch("http://localhost:3001/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
