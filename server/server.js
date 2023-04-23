@@ -8,69 +8,91 @@ const server = () => {
 export default server;
 */
 
-const express = require("express");
-const mysql = require("mysql");
-const cors = require("cors");
+const express = require('express');
+const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
 
-app.use(express.json());
-app.use(cors());
-
-const con  = mysql.createConnection({
-    user: "root",
-    host: "localhost",
-    password: "",
-    database: "biddersblock",
-    port: 3001
-})
-
-con.connect((error) => {
-  if (error) {
-    console.error('Error connecting to database:', error);
+const db = new sqlite3.Database('./backend/mysqlite.db', (err) => {
+  if (err) {
+    console.error(err.message);
   } else {
-    console.log('Connected to database!');
+    console.log('Connected to the database.');
   }
 });
 
+// perform a SELECT query to ensure there tables work
+db.all('SELECT * FROM users', [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    } else {
+      console.log(rows);
+    }
+  });
+
+  db.all('SELECT * FROM items', [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    } else {
+      console.log(rows);
+    }
+  });
+
+  db.all('SELECT * FROM bids', [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    } else {
+      console.log(rows);
+    }
+  });
+
+  db.all('SELECT * FROM category', [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    } else {
+      console.log(rows);
+    }
+  });
+
+  db.all('SELECT * FROM itemCategory', [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    } else {
+      console.log(rows);
+    }
+  });
+
+app.use(express.json());
+
 app.post('/register', (req, res) => {
-    const email = req.body.email;
-    const username = req.body.username;
-    const password = req.body.password;
+  const { username, password, email, firstname, lastname, address } = req.body;
+  db.run('INSERT INTO users (username, password, email, firstname, lastname, address) VALUES (?, ?, ?, ?, ?, ?)', [username, password, email, firstname, lastname, address], function(err) {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Failed to register user.' });
+    } else {
+      console.log(`User ${username} registered with ID ${this.lastID}`);
+      res.status(200).json({ message: 'User registered successfully.' });
+    }
+  });
+});
 
-    const firstname = req.body.firstname;
-    const lastname = req.body.lastname;
-    const address = req.body.address;
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  db.get('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, row) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Failed to login.' });
+    } else if (!row) {
+      res.status(401).json({ error: 'Invalid credentials.' });
+    } else {
+      console.log(`User ${username} logged in.`);
+      res.status(200).json({ message: 'User logged in successfully.' });
+    }
+  });
+});
 
-    con.query("INSERT INTO users (email, username, password, firstname, lastname, address) VALUES (?, ?, ?, ?, ?, ?)", [email, username, password, firstname, lastname, address], 
-        (err, result) => {
-            if(result){
-                res.send(result);
-            }else{
-                res.send({message: "ENTER CORRECT ASKED DETAILS!"})
-            }
-        }
-    )
-})
-
-app.post("/login", (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    con.query("SELECT * FROM users WHERE username = ? AND password = ?", [username, password], 
-        (err, result) => {
-            if(err){
-                req.setEncoding({err: err});
-            }else{
-                if(result.length > 0){
-                    res.send(result);
-                }else{
-                    res.send({message: "WRONG USERNAME OR PASSWORD!"})
-                }
-            }
-        }
-    )
-})
-
-app.listen(3001, () => {
-    console.log("running backend server");
-})
+const port = 3001; // server port
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}.`);
+});
