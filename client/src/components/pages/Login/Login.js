@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
 import LoginForm from "./LoginForm";
 
@@ -6,6 +7,7 @@ const Login = () => {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,9 +23,11 @@ const Login = () => {
     });
 
     if (response.ok) {
-      login();
+      const userData = await response.json();
+      login(userData);
       setUsernameInput("");
       setPasswordInput("");
+      navigate("/ProfilePage");
     } else if (response.status === 401) {
       alert("Invalid username or password.");
     } else {
@@ -45,4 +49,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
 
