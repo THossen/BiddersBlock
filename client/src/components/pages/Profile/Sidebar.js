@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../auth/useAuth";
 
 const Sidebar = () => {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <div className="bg-white h-screen py-4 shadow-xl w-96">
       <div className="flex items-center justify-center text-center">
         <div className="ml-4">
           <h4 className="text-6xl font-semibold text-gray-700 capitalize">
-            Leo Messi
+            {user ? user.userName : "Guest"}
           </h4>
         </div>
       </div>
@@ -42,6 +46,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-
-

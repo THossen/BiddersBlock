@@ -1,4 +1,3 @@
-import { AuthProvider } from "../../auth/AuthContext";
 import Login from "./Login";
 
 const LoginPage = ({ username, password }) => {
