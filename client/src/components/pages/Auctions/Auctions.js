@@ -1,8 +1,6 @@
-import React from "react";
 import AuctionCard from "./AuctionCard";
 import { Link } from "react-router-dom";
 import AuctionData from "./AuctionData";
-import AddAuctionForm from "./AddAuctionForm";
 
 const Auctions = () => {
   return (
