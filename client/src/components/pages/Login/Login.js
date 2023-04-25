@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
 import LoginForm from "./LoginForm";
+import axios from "axios"
 
 const Login = () => {
   const [usernameInput, setUsernameInput] = useState("");
@@ -11,27 +12,25 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:3001/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    try {
+      const response = await axios.post("http://localhost:3001/login", {
         userName: usernameInput,
-        userPassword: passwordInput
-      })
-    });
+        userPassword: passwordInput,
+      });
 
-    if (response.ok) {
-      const { user } = await response.json(); // Extract the user object
-      login(user);
-      setUsernameInput("");
-      setPasswordInput("");
-      navigate("/ProfilePage");
-    } else if (response.status === 401) {
-      alert("Invalid username or password.");
-    } else {
-      alert("Failed to login.");
+      if (response.status === 200) {
+        const { user } = response.data; // Extract the user object
+        login(user);
+        setUsernameInput("");
+        setPasswordInput("");
+        navigate("/ProfilePage");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        alert("Invalid username or password.");
+      } else {
+        alert("Failed to login.");
+      }
     }
   };
 

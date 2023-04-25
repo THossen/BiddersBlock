@@ -79,7 +79,7 @@ app.post('/login', (req, res) => {
       res.status(401).json({ error: 'Invalid credentials.' });
     } else {
       console.log(`User ${userName} logged in.`);
-      res.status(200).json({ message: 'User logged in successfully.' });
+      res.status(200).json({ message: 'User logged in successfully.', user: row }); // Send the user object with the response
     }
   });
 });

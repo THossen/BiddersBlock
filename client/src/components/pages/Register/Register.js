@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import RegistrationForm from "./RegistrationForm";
 
 const Register = () => {
@@ -19,32 +20,20 @@ const Register = () => {
     }
 
     try {
-      // Make API call to register user with the provided data
-      // Replace this with your actual API call to register a user
-      const response = await fetch("http://localhost:3001/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName, 
-          userEmail, 
-          userPassword, 
-          userFirstname, 
-          userLastname, 
-          userAddress
-        }),
+      const response = await axios.post("http://localhost:3001/register", {
+        userName, 
+        userEmail, 
+        userPassword, 
+        userFirstname, 
+        userLastname, 
+        userAddress
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        setErrorMessage(error.message);
-      } else {
-        // Redirect to login page upon successful registration
-        window.location.href = "/LoginPage";
-      }
+      // Redirect to login page upon successful registration
+      window.location.href = "/LoginPage";
+      
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(error.response.data.message);
     }
   };
 
@@ -73,4 +62,3 @@ const Register = () => {
 };
 
 export default Register;
-
