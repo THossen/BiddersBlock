@@ -1,12 +1,25 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-import AuctionData from "./AuctionData"; // import the auction data
+import { useState, useContext } from "react";
+import { AuctionContext } from "../../Providers/AuctionContext";
 
 function AuctionDetailsPage() {
-  const { id } = useParams(); // retrieve the ID from the URL parameter
-  const auction = AuctionData.find((auction) => auction.id === parseInt(id)); // retrieve the specific auction data based on the ID
-  const { itemName, itemDescription, currentBid, itemPicture } = auction; // extract the auction data
-  const [newBid, setNewBid] = useState("");
+  const { id } = useParams();
+  const { auctionData } = useContext(AuctionContext);
+  const [newBid, setNewBid] = useState(""); // Move this line up
+
+  if (!auctionData.length) {
+    return <div>Loading...</div>;
+  }
+
+  const auction = auctionData.find(
+    (auction) => auction.itemID === parseInt(id)
+  );
+
+  if (!auction) {
+    return <div>Auction not found</div>;
+  }
+
+  const { itemName, itemDescription, currentBidAmount, itemPicture } = auction;
 
   const handleBidChange = (event) => {
     setNewBid(event.target.value);
@@ -14,7 +27,7 @@ function AuctionDetailsPage() {
 
   const handleBidSubmit = (event) => {
     event.preventDefault();
-    console.log(`Placing bid of ${newBid} for auction ${id}`); // log the auction ID along with the bid
+    console.log(`Placing bid of ${newBid} for auction ${id}`);
     setNewBid("");
   };
 
@@ -32,7 +45,7 @@ function AuctionDetailsPage() {
           <h1 className="text-4xl font-bold">{itemName}</h1>
           <p className="mt-4 text-xl">{itemDescription}</p>
           <p className="mt-8 text-3xl font-bold text-red-500">
-            Starting bid: ${currentBid}
+            Starting bid: ${currentBidAmount}
           </p>
           <form className="mt-8" onSubmit={handleBidSubmit}>
             <div className="flex">

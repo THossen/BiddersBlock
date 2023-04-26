@@ -1,16 +1,24 @@
+// Auctions.js
+import { useEffect, useContext } from "react";
 import AuctionCard from "./AuctionCard";
 import { Link } from "react-router-dom";
-import AuctionData from "./AuctionData";
+import { AuctionContext } from "../../Providers/AuctionContext";
 
 const Auctions = () => {
+  const { auctionData, fetchData } = useContext(AuctionContext);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   return (
     <div className="flex flex-wrap justify-center items-center p-4 space-x-4 space-y-4">
-      {AuctionData.map((auction) => (
-        <Link key={auction.id} to={`/auctions/${auction.id}`}>
+      {auctionData.map((auction) => (
+        <Link key={auction.itemID} to={`/auctions/${auction.itemID}`}>
           <AuctionCard
             itemName={auction.itemName}
             itemDescription={auction.itemDescription}
-            currentBid={auction.currentBid}
+            currentBidAmount={auction.currentBidAmount}
             itemPicture={auction.itemPicture}
           />
         </Link>
