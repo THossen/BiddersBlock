@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS items
     itemDescription     TEXT            NOT NULL,
     itemPicture         TEXT,
     startingPrice       DECIMAL(10,2)   NOT NULL,
+    highestPrice       DECIMAL(10,2),
     auctionStartTime    DATETIME        NOT NULL,
     auctionEndTime      DATETIME        NOT NULL,
     currentBidAmount    DECIMAL(10,2)   NOT NULL,
@@ -89,11 +90,11 @@ VALUES
     (3, 2);
 
 
-INSERT OR REPLACE INTO items (sellerID, itemName, itemDescription, startingPrice, auctionStartTime, auctionEndTime, currentBidAmount, currentBidderID, itemPicture)
+INSERT OR REPLACE INTO items (sellerID, itemName, itemDescription, startingPrice, highestPrice, auctionStartTime, auctionEndTime, currentBidAmount, currentBidderID, itemPicture)
 VALUES
-    (2, 'Painting', 'A beautiful painting', 100.00, '2023-04-15 12:00:00', '2023-04-20 12:00:00', 100.00, NULL, 'https://picsum.photos/200'),
-    (2, 'Watch', 'A luxury watch', 500.00, '2023-04-15 12:00:00', '2023-04-22 12:00:00', 500.00, 1, 'https://picsum.photos/200'),
-    (1, 'Sneakers', 'A rare pair of sneakers', 200.00, '2023-04-15 12:00:00', '2023-04-25 12:00:00', 200.00, NULL, 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80');
+    (2, 'Painting', 'A beautiful painting', 100.00, 150, '2023-04-15 12:00:00', '2023-04-20 12:00:00', 125.00, 3, 'https://picsum.photos/200'),
+    (2, 'Watch', 'A luxury watch', 100.00, 550, '2023-04-15 12:00:00', '2023-04-22 12:00:00', 100.00, 1, 'https://picsum.photos/200'),
+    (1, 'Sneakers', 'A rare pair of sneakers', 100.00, NULL, '2023-04-15 12:00:00', '2023-04-25 12:00:00', 200.00, NULL, 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80');
 
 
 INSERT OR REPLACE INTO bids (bidderID, itemID, bidAmount, bid_time)
