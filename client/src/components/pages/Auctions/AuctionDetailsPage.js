@@ -1,19 +1,29 @@
 import { useParams } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuctionContext } from "../../Providers/AuctionContext";
+import LiveBids from "./LiveBids";
 
 function AuctionDetailsPage() {
   const { id } = useParams();
   const { auctionData } = useContext(AuctionContext);
-  const [newBid, setNewBid] = useState(""); // Move this line up
+  const [newBid, setNewBid] = useState("");
+
+  const [auction, setAuction] = useState(null);
+  const [highestPrice, setHighestPrice] = useState(null);
+
+  useEffect(() => {
+    if (auctionData.length) {
+      const foundAuction = auctionData.find(
+        (auction) => auction.itemID === parseInt(id)
+      );
+      setAuction(foundAuction);
+      setHighestPrice(foundAuction?.highestPrice);
+    }
+  }, [auctionData, id]);
 
   if (!auctionData.length) {
     return <div>Loading...</div>;
   }
-
-  const auction = auctionData.find(
-    (auction) => auction.itemID === parseInt(id)
-  );
 
   if (!auction) {
     return <div>Auction not found</div>;
@@ -27,29 +37,37 @@ function AuctionDetailsPage() {
 
   const handleBidSubmit = (event) => {
     event.preventDefault();
+    if (parseFloat(newBid) < parseFloat(auction.startingPrice)) {
+      alert(`The bid should be at least ${auction.startingPrice}`);
+      return;
+    }
     console.log(`Placing bid of ${newBid} for auction ${id}`);
+    setHighestPrice(newBid);
     setNewBid("");
   };
 
   return (
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="md:w-1/2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="relative">
           <img
-            className="h-96 object-cover w-full rounded-lg shadow-md"
+            className="w-full h-96 object-cover rounded-lg shadow-md"
             src={itemPicture}
             alt={itemName}
           />
         </div>
-        <div className="md:w-1/2">
-          <h1 className="text-4xl font-bold">{itemName}</h1>
-          <p className="mt-4 text-xl">{itemDescription}</p>
-          <p className="mt-8 text-3xl font-bold text-red-500">
-            Starting bid: ${currentBidAmount}
+        <div className="bg-violet-950 p-8 rounded-lg">
+          <h1 className="text-4xl font-bold text-white">{itemName}</h1>
+          <p className="mt-4 text-xl text-white">{itemDescription}</p>
+          <p className="mt-8 text-3xl font-bold text-yellow-400">
+            Starting Price: ${currentBidAmount}
+          </p>
+          <p className="mt-4 text-2xl font-bold text-green-400">
+            Highest bid: ${highestPrice ? highestPrice : currentBidAmount}
           </p>
           <form className="mt-8" onSubmit={handleBidSubmit}>
             <div className="flex">
-              <label htmlFor="bid-amount" className="text-xl mr-4">
+              <label htmlFor="bid-amount" className="text-xl mr-4 text-white">
                 Place a Bid:
               </label>
               <div className="relative">
@@ -75,6 +93,9 @@ function AuctionDetailsPage() {
             </button>
           </form>
         </div>
+      </div>
+      <div className="mt-8">
+        <LiveBids itemID={id} />
       </div>
     </div>
   );

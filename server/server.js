@@ -122,6 +122,18 @@ app.post('/add-auction', (req, res) => {
   );
 });
 
+app.get('/latest-bids/:itemID', (req, res) => {
+  const { itemID } = req.params;
+  db.all('SELECT * FROM bids WHERE itemID = ? ORDER BY bid_time DESC LIMIT 10', [itemID], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Failed to fetch bids.' });
+    } else {
+      console.log('Fetched bids:', rows);
+      res.status(200).json({ bids: rows });
+    }
+  });
+});
 
 
 const port = 3001; // server port
