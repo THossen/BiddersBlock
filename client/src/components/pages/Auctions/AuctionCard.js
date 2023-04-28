@@ -1,5 +1,5 @@
 function AuctionCard(props) {
-  const { itemPicture, itemName, itemDescription, currentBidAmount } = props;
+  const { itemPicture, itemName, itemDescription, highestPrice } = props;
 
   return (
     <div className="rounded overflow-hidden shadow-lg h-full">
@@ -14,7 +14,7 @@ function AuctionCard(props) {
       </div>
       <div className="px-6 pb-6">
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          Highest Bid: ${props.highestPrice || "None"}
+          Highest Bid: ${highestPrice || "None"}
         </span>
       </div>
     </div>

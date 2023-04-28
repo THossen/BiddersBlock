@@ -29,7 +29,7 @@ function AuctionDetailsPage() {
     return <div>Auction not found</div>;
   }
 
-  const { itemName, itemDescription, currentBidAmount, itemPicture } = auction;
+  const { itemName, itemDescription, startingPrice, currentBidAmount, itemPicture } = auction;
 
   const handleBidChange = (event) => {
     setNewBid(event.target.value);
@@ -60,7 +60,7 @@ function AuctionDetailsPage() {
           <h1 className="text-4xl font-bold text-white">{itemName}</h1>
           <p className="mt-4 text-xl text-white">{itemDescription}</p>
           <p className="mt-8 text-3xl font-bold text-yellow-400">
-            Starting Price: ${currentBidAmount}
+            Starting Price: ${startingPrice}
           </p>
           <p className="mt-4 text-2xl font-bold text-green-400">
             Highest bid: ${highestPrice ? highestPrice : currentBidAmount}
