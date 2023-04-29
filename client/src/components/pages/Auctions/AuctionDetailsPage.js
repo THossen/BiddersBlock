@@ -3,13 +3,15 @@ import { useState, useContext, useEffect } from "react";
 import { AuctionContext } from "../../Providers/AuctionContext";
 import useCountdown from "../../Providers/useCountdown";
 import LiveBids from "./LiveBids";
+import useAuth from "../../Providers/useAuth";
 
-function AuctionDetailsPage() {
+function AuctionDetailsPage({ itemID }) {
   const { id } = useParams();
   const { auctionData } = useContext(AuctionContext);
   const [newBid, setNewBid] = useState("");
   const [auction, setAuction] = useState(null);
   const [highestPrice, setHighestPrice] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     if (auctionData.length) {
@@ -51,7 +53,7 @@ function AuctionDetailsPage() {
       alert(`The bid should be at least ${auction.startingPrice}`);
       return;
     }
-    console.log(`Placing bid of ${newBid} for auction ${id}`);
+    console.log(`Placing bid of ${newBid} for auction ${auction.itemID}`);
     setHighestPrice(newBid);
     setNewBid("");
   };

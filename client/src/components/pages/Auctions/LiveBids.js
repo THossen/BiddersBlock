@@ -7,7 +7,7 @@ const LiveBids = ({ itemID }) => {
   useEffect(() => {
     const fetchBids = async () => {
       try {
-        const res = await axios.get(`/latest-bids/${itemID}`);
+        const res = await axios.get(`/latest-bids`);
         setBids(res.data.bids);
       } catch (err) {
         console.error(err);
@@ -17,7 +17,7 @@ const LiveBids = ({ itemID }) => {
     fetchBids();
     const interval = setInterval(() => {
       fetchBids();
-    }, 10000); 
+    }, 50000); 
 
     return () => clearInterval(interval);
   }, [itemID]);

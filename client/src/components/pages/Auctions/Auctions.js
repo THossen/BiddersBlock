@@ -17,8 +17,7 @@ const Auctions = () => {
           <div>
             <AuctionCard
               itemName={auction.itemName}
-              itemDescription={auction.itemDescription}
-              currentBidAmount={auction.currentBidAmount}
+              itemDescription={auction.itemDescription}              
               itemPicture={auction.itemPicture}
               highestPrice={auction.highestPrice}
               auctionStartTime={auction.auctionStartTime}
