@@ -24,7 +24,7 @@ const LiveBids = ({ itemID }) => {
 
   return (
     <div>
-      <h3>Latest Bids:</h3>
+      <h3 className='font-bold text-3xl'>Latest Bids:</h3>
       {bids.map((bid) => (
         <p key={bid.bidID}>
           User {bid.bidderID} bid ${bid.bidAmount} at {bid.bid_time}
