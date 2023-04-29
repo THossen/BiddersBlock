@@ -89,7 +89,7 @@ const AddAuctionForm = ({ onAuctionAdded, userID }) => {
       />
       <button
         type="submit"
-        className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-4 py-2 bg-cyan-500 text-white rounded-3xl hover:bg-cyan-700 hover:scale-110 duration-200 ease-in-out"
       >
         Add Auction
       </button>
