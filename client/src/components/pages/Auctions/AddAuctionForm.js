@@ -2,14 +2,15 @@
 import { useState } from "react";
 import axios from "axios";
 
-const AddAuctionForm = ({ onAuctionAdded }) => {
+const AddAuctionForm = ({ onAuctionAdded, userId }) => {
   const [formData, setFormData] = useState({
-    sellerID: "",
+    sellerID: userId,
     itemName: "",
     itemDescription: "",
     startingPrice: "",
     auctionStartTime: "",
     auctionEndTime: "",
+    itemPicture: "",
   });
 
   const handleChange = (e) => {
@@ -19,7 +20,10 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/add-auction", formData);
+      const response = await axios.post(
+        "http://localhost:3001/add-auction",
+        formData
+      );
       console.log(response.data.message);
       onAuctionAdded();
     } catch (error) {
@@ -28,15 +32,7 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="number"
-        name="sellerID"
-        value={formData.sellerID}
-        onChange={handleChange}
-        placeholder="Seller ID"
-        required
-      />
+    <form onSubmit={handleSubmit} className="space-y-4">
       <input
         type="text"
         name="itemName"
@@ -44,6 +40,7 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
         onChange={handleChange}
         placeholder="Item Name"
         required
+        className="block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="text"
@@ -52,6 +49,16 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
         onChange={handleChange}
         placeholder="Item Description"
         required
+        className="block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <input
+        type="text"
+        name="itemPicture"
+        value={formData.itemPicture}
+        onChange={handleChange}
+        placeholder="Item Picture URL"
+        required
+        className="block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="number"
@@ -60,6 +67,7 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
         onChange={handleChange}
         placeholder="Starting Price"
         required
+        className="block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="datetime-local"
@@ -68,6 +76,7 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
         onChange={handleChange}
         placeholder="Auction Start Time"
         required
+        className="block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="datetime-local"
@@ -76,8 +85,14 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
         onChange={handleChange}
         placeholder="Auction End Time"
         required
+        className="block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-      <button type="submit">Add Auction</button>
+      <button
+        type="submit"
+        className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Add Auction
+      </button>
     </form>
   );
 };
