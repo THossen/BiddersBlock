@@ -2,9 +2,9 @@
 import { useState } from "react";
 import axios from "axios";
 
-const AddAuctionForm = ({ onAuctionAdded, userId }) => {
+const AddAuctionForm = ({ onAuctionAdded, userID }) => {
   const [formData, setFormData] = useState({
-    sellerID: userId,
+    sellerID: userID,
     itemName: "",
     itemDescription: "",
     startingPrice: "",

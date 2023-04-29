@@ -19,7 +19,7 @@ const ProfilePage = () => {
         <Routes>
           <Route path="/UserInfo" element={<UserInfo />} />
           <Route path="/AuctionsWon" element={<AuctionsWon />} />
-          <Route path="/AddAuctionForm" element={<AddAuctionForm onAuctionAdded={fetchData} userID={user.id} />} />
+          <Route path="/AddAuctionForm" element={<AddAuctionForm onAuctionAdded={fetchData} userID={user.userID} />} />
         </Routes>
       </div>
     </div>
