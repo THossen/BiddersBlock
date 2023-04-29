@@ -1,5 +1,14 @@
 function AuctionCard(props) {
-  const { itemPicture, itemName, itemDescription, highestPrice } = props;
+  const {
+    itemPicture,
+    itemName,
+    itemDescription,
+    highestPrice,
+    auctionStartTime,
+    auctionEndTime,
+  } = props;
+  const startTime = new Date(auctionStartTime);
+  const endTime = new Date(auctionEndTime);
 
   return (
     <div className="rounded overflow-hidden shadow-lg h-full">
@@ -16,6 +25,10 @@ function AuctionCard(props) {
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
           Highest Bid: ${highestPrice || "None"}
         </span>
+        <p className="text-gray-700 text-sm">
+          Starts: {startTime.toLocaleString()} | Ends:{" "}
+          {endTime.toLocaleString()}
+        </p>
       </div>
     </div>
   );

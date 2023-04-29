@@ -21,6 +21,8 @@ const Auctions = () => {
               currentBidAmount={auction.currentBidAmount}
               itemPicture={auction.itemPicture}
               highestPrice={auction.highestPrice}
+              auctionStartTime={auction.auctionStartTime}
+              auctionEndTime={auction.auctionEndTime}
             />
           </div>
         </Link>

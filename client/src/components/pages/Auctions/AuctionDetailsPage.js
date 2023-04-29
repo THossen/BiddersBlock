@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import { AuctionContext } from "../../Providers/AuctionContext";
+import useCountdown from "../../Providers/useCountdown";
 import LiveBids from "./LiveBids";
 
 function AuctionDetailsPage() {
   const { id } = useParams();
   const { auctionData } = useContext(AuctionContext);
   const [newBid, setNewBid] = useState("");
-
   const [auction, setAuction] = useState(null);
   const [highestPrice, setHighestPrice] = useState(null);
 
@@ -21,6 +21,10 @@ function AuctionDetailsPage() {
     }
   }, [auctionData, id]);
 
+  const timeLeft = useCountdown(
+    auction ? new Date(auction.auctionEndTime) : new Date()
+  );
+
   if (!auctionData.length) {
     return <div>Loading...</div>;
   }
@@ -29,7 +33,13 @@ function AuctionDetailsPage() {
     return <div>Auction not found</div>;
   }
 
-  const { itemName, itemDescription, startingPrice, currentBidAmount, itemPicture } = auction;
+  const {
+    itemName,
+    itemDescription,
+    startingPrice,
+    currentBidAmount,
+    itemPicture,
+  } = auction;
 
   const handleBidChange = (event) => {
     setNewBid(event.target.value);
@@ -64,6 +74,9 @@ function AuctionDetailsPage() {
           </p>
           <p className="mt-4 text-2xl font-bold text-green-400">
             Highest bid: ${highestPrice ? highestPrice : currentBidAmount}
+          </p>
+          <p className="mt-4 text-2xl font-bold text-red-500">
+            Time left: {timeLeft}
           </p>
           <form className="mt-8" onSubmit={handleBidSubmit}>
             <div className="flex">

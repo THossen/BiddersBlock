@@ -21,7 +21,7 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
     try {
       const response = await axios.post("http://localhost:3001/add-auction", formData);
       console.log(response.data.message);
-      onAuctionAdded(); // Call the onAuctionAdded prop here
+      onAuctionAdded();
     } catch (error) {
       console.error("Error adding auction:", error);
     }
