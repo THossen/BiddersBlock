@@ -61,7 +61,7 @@ function AuctionDetailsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="relative">
           <img
-            className="w-full h-96 object-cover rounded-lg shadow-md"
+            className="w-full h-full object-cover rounded-lg shadow-md"
             src={itemPicture}
             alt={itemName}
           />
@@ -78,29 +78,27 @@ function AuctionDetailsPage() {
           <p className="mt-4 text-2xl font-bold text-red-500">
             Time left: {timeLeft}
           </p>
-          <form className="mt-8" onSubmit={handleBidSubmit}>
-            <div className="flex">
-              <label htmlFor="bid-amount" className="text-xl mr-4 text-white">
-                Place a Bid:
-              </label>
-              <div className="relative">
-                <input
-                  id="bid-amount"
-                  type="number"
-                  className="block w-full pl-10 pr-3 py-2 border-2 border-gray-200 rounded-md leading-5 bg-white text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-blue-500"
-                  placeholder="Enter bid amount"
-                  value={newBid}
-                  onChange={handleBidChange}
-                  required
-                />
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <span className="text-gray-500 sm:text-sm">$</span>
-                </div>
+          <form className="mt-8 flex items-center" onSubmit={handleBidSubmit}>
+            <label htmlFor="bid-amount" className="text-xl mr-4 text-white">
+              Place a Bid:
+            </label>
+            <div className="relative flex-1">
+              <input
+                id="bid-amount"
+                type="number"
+                className="block w-full pl-10 pr-3 py-2 border-2 border-gray-200 rounded-md leading-5 bg-white text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Enter bid amount"
+                value={newBid}
+                onChange={handleBidChange}
+                required
+              />
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <span className="text-gray-500 sm:text-sm">$</span>
               </div>
             </div>
             <button
               type="submit"
-              className="mt-4 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-cyan-500 hover:bg-sky-700"
+              className="ml-4 py-2 px-4 font-bold rounded-full text-white bg-cyan-500 hover:bg-sky-700 hover:scale-110 duration-200 ease-in-out"
             >
               Submit Bid
             </button>
