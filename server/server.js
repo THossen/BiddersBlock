@@ -108,8 +108,8 @@ app.post('/add-auction', (req, res) => {
     itemPicture,
   } = req.body;
   db.run(
-    'INSERT INTO items (sellerID, itemName, itemDescription, startingPrice, auctionStartTime, auctionEndTime, currentBidAmount, itemPicture) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', 
-    [sellerID, itemName, itemDescription, startingPrice, auctionStartTime, auctionEndTime, startingPrice, itemPicture],
+    'INSERT INTO items (sellerID, itemName, itemDescription, startingPrice, auctionStartTime, auctionEndTime, itemPicture) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+    [sellerID, itemName, itemDescription, startingPrice, auctionStartTime, auctionEndTime, itemPicture],
     function (err) {
       if (err) {
         console.error(err.message);
@@ -122,14 +122,34 @@ app.post('/add-auction', (req, res) => {
   );
 });
 
+app.post('/add-bid', async (req, res) => {
+  const { bidAmount, bidderID, itemID } = req.body;
+  const bid_time = new Date();
+  try {
+    const result = await db.run(
+      `INSERT INTO bids (bidderID, itemID, bidAmount, bid_time) VALUES (?, ?, ?, ?)`,
+      [bidderID, itemID, bidAmount, bid_time]
+    );
+    await db.run(
+      `UPDATE items SET currentBidAmount = ?, currentBidderID = ?, highestPrice = ? WHERE itemID = ?`,
+      [bidAmount, bidderID, bidAmount, itemID]
+    );
+    res.status(201).json({ bidID: result.lastID });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
 app.get('/latest-bids/:itemID', (req, res) => {
   const { itemID } = req.params;
-  db.all('SELECT * FROM bids WHERE itemID = ? ORDER BY bid_time DESC LIMIT 10', [itemID], (err, rows) => {
+  db.all('SELECT bidderID, bidAmount, bid_time FROM bids WHERE itemID = ? ORDER BY bid_time DESC LIMIT 10', [itemID], (err, rows) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: 'Failed to fetch bids.' });
     } else {
-      console.log('Fetched bids:', rows);
+      //console.log('Fetched bids:', rows);
       res.status(200).json({ bids: rows });
     }
   });

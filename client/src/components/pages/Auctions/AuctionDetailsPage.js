@@ -4,6 +4,8 @@ import { AuctionContext } from "../../Providers/AuctionContext";
 import useCountdown from "../../Providers/useCountdown";
 import LiveBids from "./LiveBids";
 import useAuth from "../../Providers/useAuth";
+import axios from 'axios';
+//import moment from 'moment';
 
 function AuctionDetailsPage({ itemID }) {
   const { id } = useParams();
@@ -43,20 +45,38 @@ function AuctionDetailsPage({ itemID }) {
     itemPicture,
   } = auction;
 
+  //const moment = require('moment');
+
   const handleBidChange = (event) => {
     setNewBid(event.target.value);
   };
 
-  const handleBidSubmit = (event) => {
+  const handleBidSubmit = async (event) => {
     event.preventDefault();
     if (parseFloat(newBid) < parseFloat(auction.startingPrice)) {
       alert(`The bid should be at least ${auction.startingPrice}`);
       return;
     }
+    if (highestPrice && parseFloat(newBid) <= parseFloat(highestPrice)) {
+      alert(`The bid should be at least $1 more than the current highest bid`);
+      return;
+    }
     console.log(`Placing bid of ${newBid} for auction ${auction.itemID}`);
-    setHighestPrice(newBid);
-    setNewBid("");
+    try {
+      const response = await axios.post('http://localhost:3001/add-bid', {
+        bidderID: user.userID,
+        itemID: auction.itemID,
+        bidAmount: newBid,
+        bid_time: new Date().toLocaleString() + ""
+      });
+      console.log(response.data);
+      setHighestPrice(newBid);
+      setNewBid("");
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
 
   return (
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -75,7 +95,7 @@ function AuctionDetailsPage({ itemID }) {
             Starting Price: ${startingPrice}
           </p>
           <p className="mt-4 text-2xl font-bold text-green-400">
-            Highest bid: ${highestPrice ? highestPrice : currentBidAmount}
+            Highest bid: ${highestPrice}
           </p>
           <p className="mt-4 text-2xl font-bold text-red-500">
             Time left: {timeLeft}
