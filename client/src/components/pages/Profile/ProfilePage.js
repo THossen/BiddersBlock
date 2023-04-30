@@ -15,21 +15,23 @@ const ProfilePage = () => {
     <div className="flex flex-col flex-1">
       <div className="flex font-bold text-5xl text-center py-8">
         <Sidebar />
-        <div className="main ml-64 mt-16 flex-1">
-          <Routes>
-            <Route path="/" element={<UserInfo />} />
-            <Route path="/UserInfo" element={<UserInfo />} />
-            <Route path="/AuctionsWon" element={<AuctionsWon />} />
-            <Route
-              path="/AddAuctionForm"
-              element={
-                <AddAuctionForm
-                  onAuctionAdded={fetchData}
-                  userID={user.userID}
-                />
-              }
-            />
-          </Routes>
+        <div className="main mt-16 flex-1">
+          <div className="container mx-auto px-4">
+            <Routes>
+              <Route path="/" element={<UserInfo />} />
+              <Route path="/UserInfo" element={<UserInfo />} />
+              <Route path="/AuctionsWon" element={<AuctionsWon />} />
+              <Route
+                path="/AddAuctionForm"
+                element={
+                  <AddAuctionForm
+                    onAuctionAdded={fetchData}
+                    userID={user.userID}
+                  />
+                }
+              />
+            </Routes>
+          </div>
         </div>
       </div>
     </div>
