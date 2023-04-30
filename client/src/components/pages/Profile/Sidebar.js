@@ -6,7 +6,7 @@ const Sidebar = () => {
   console.log(user);
 
   return (
-    <div className="bg-white h-screen py-4 shadow-xl w-96">
+    <div className="bg-white py-4 shadow-xl w-96">
       <div className="flex items-center justify-center text-center">
         <div className="ml-4">
           <h4 className="text-6xl font-semibold text-gray-700 capitalize">

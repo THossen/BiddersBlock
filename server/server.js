@@ -155,6 +155,17 @@ app.get('/latest-bids/:itemID', (req, res) => {
   });
 });
 
+app.get('/won-auctions/:userID', (req, res) => {
+  const { userID } = req.params;
+  db.all('SELECT * FROM items WHERE currentBidderID = ? AND auctionEndTime < datetime("now")', [userID], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Failed to fetch won auctions.' });
+    } else {
+      res.status(200).json({ auctions: rows });
+    }
+  });
+});
 
 const port = 3001; // server port
 app.listen(port, () => {
