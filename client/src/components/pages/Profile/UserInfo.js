@@ -1,34 +1,32 @@
-import React from 'react';
 import useAuth from "../../Providers/useAuth";
-import axios from 'axios';
-
+import { FaUser, FaMapMarkerAlt } from "react-icons/fa";
 
 const UserInfo = () => {
   const { user } = useAuth();
-  console.log(user);
 
   return (
-    <div className="rounded-lg shadow-lg w-full h-full">
-      <h2 className="text-4xl font-bold text-gray-800 md:text-5xl">
+    <div className="bg-gray-100 rounded-lg shadow-xl p-8">
+      <h2 className="text-4xl font-bold text-gray-800 mb-4">
         User Info
       </h2>
-      <div className="text-1x1 text-gray-800 text-center py-1">
-        <table>
-          <tr>
-            <td text-align='center'>{user ? user.userFirstName : "First Name"} {user ? user.userLastName : "Last Name"}</td>
-          </tr>
-          <tr>
-            <td align='left'>Email: </td>
-            <td align='right'>{user ? user.userEmail : "Email"}</td>
-          </tr>
-          <tr>
-            <td>Address: </td>
-            <td align='right'>{user ? user.userAddress : "Address"}</td>
-          </tr>
-        </table>
+      <div className="text-lg text-gray-600 grid grid-cols-2 gap-8">
+        <div className="flex items-center space-x-4">
+          <FaUser className="text-gray-400 text-2xl" />
+          <div>
+            <div className="font-semibold text-lg">{user ? `${user.userFirstName} ${user.userLastName}` : "Unknown"}</div>
+            <div className="text-sm">{user ? user.userEmail : "Unknown"}</div>
+          </div>
         </div>
+        <div className="flex items-center space-x-4">
+          <FaMapMarkerAlt className="text-gray-400 text-2xl" />
+          <div>
+            <div className="font-semibold text-lg">Address</div>
+            <div className="text-sm">{user ? user.userAddress : "Unknown"}</div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
 
-export default UserInfo
+export default UserInfo;
