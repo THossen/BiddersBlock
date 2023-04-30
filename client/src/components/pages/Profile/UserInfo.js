@@ -1,5 +1,5 @@
 import useAuth from "../../Providers/useAuth";
-import { FaUser, FaMapMarkerAlt } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const UserInfo = () => {
   const { user } = useAuth();
