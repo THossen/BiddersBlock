@@ -162,7 +162,6 @@ app.post("/add-bid", async (req, res) => {
   const bid_time = new Date();
 
   try {
-    // Check if the new bid amount is higher than the current highest bid
     const currentItem = await new Promise((resolve, reject) => {
       db.get("SELECT * FROM items WHERE itemID = ?", [itemID], (err, row) => {
         if (err) {
