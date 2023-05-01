@@ -15,7 +15,7 @@ const Sidebar = () => {
       <div className="flex items-center justify-center text-center">
         <div className="ml-4">
           <h4 className="text-6xl font-semibold text-gray-700 capitalize">
-            {user ? user.userName : "Guest"}
+            {user ? `${user.userFirstName} ${user.userLastName}` : "Guest"}
           </h4>
         </div>
       </div>

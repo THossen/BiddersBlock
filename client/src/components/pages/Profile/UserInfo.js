@@ -1,32 +1,63 @@
-import useAuth from "../../Providers/useAuth";
-import { FaUser, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import useAuth from '../../Providers/useAuth';
+import { FaUser, FaMapMarkerAlt } from 'react-icons/fa';
+import { Typography, Paper, Grid, Avatar } from '@mui/material';
+import { styled } from '@mui/system';
+
+const StyledPaper = styled(Paper)(() => ({
+  padding: '2rem',
+  borderRadius: '0.5rem',
+}));
+
+const StyledAvatar = styled(Avatar)(() => ({
+  backgroundColor: 'gray',
+  marginRight: '1rem',
+}));
 
 const UserInfo = () => {
   const { user } = useAuth();
 
   return (
-    <div className="bg-gray-100 rounded-lg shadow-xl p-8">
-      <h2 className="text-4xl font-bold text-gray-800 mb-4">
+    <StyledPaper elevation={4}>
+      <Typography variant="h4" component="h2" gutterBottom>
         User Info
-      </h2>
-      <div className="text-lg text-gray-600 grid grid-cols-2 gap-8">
-        <div className="flex items-center space-x-4">
-          <FaUser className="text-gray-400 text-2xl" />
-          <div>
-            <div className="font-semibold text-lg">{user ? `${user.userFirstName} ${user.userLastName}` : "Unknown"}</div>
-            <div className="text-sm">{user ? user.userEmail : "Unknown"}</div>
-          </div>
-        </div>
-        <div className="flex items-center space-x-4">
-          <FaMapMarkerAlt className="text-gray-400 text-2xl" />
-          <div>
-            <div className="font-semibold text-lg">Address</div>
-            <div className="text-sm">{user ? user.userAddress : "Unknown"}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+      </Typography>
+      <Grid container spacing={4}>
+        <Grid item xs={6}>
+          <Grid container alignItems="center">
+            <StyledAvatar>
+              <FaUser />
+            </StyledAvatar>
+            <div>
+              <Typography variant="h6">
+                {user ? `${user.userFirstName} ${user.userLastName}` : 'Unknown'}
+              </Typography>
+              <Typography variant="body2">
+                {user ? user.userEmail : 'Unknown'}
+              </Typography>
+            </div>
+          </Grid>
+        </Grid>
+        <Grid item xs={6}>
+          <Grid container alignItems="center">
+            <StyledAvatar>
+              <FaMapMarkerAlt />
+            </StyledAvatar>
+            <div>
+              <Typography variant="h6">Address</Typography>
+              <Typography variant="body2">
+                {user ? user.userAddress : 'Unknown'}
+              </Typography>
+            </div>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body1">
+            <strong>Username:</strong> {user ? user.userName : 'Unknown'}
+          </Typography>
+        </Grid>
+      </Grid>
+    </StyledPaper>
+  );
+};
 
 export default UserInfo;
