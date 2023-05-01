@@ -7,7 +7,7 @@ const Sidebar = () => {
   const links = [
     { to: "/ProfilePage/UserInfo", label: "Profile" },
     { to: "/ProfilePage/AuctionsWon", label: "Auctions Won" },
-    { to: "/ProfilePage/AddAuctionForm", label: "Your Auctions" },
+    { to: "/ProfilePage/AddAuctionForm", label: "Sell" },
   ];
 
   return (
