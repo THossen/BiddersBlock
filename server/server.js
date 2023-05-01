@@ -157,62 +157,32 @@ app.post("/add-auction", (req, res) => {
   );
 });
 
-app.post("/add-bid", async (req, res) => {
-  const { bidAmount, bidderID, itemID } = req.body;
-  const bid_time = new Date();
+app.post("/add-bid", (req, res) => {
+  const { bidderID, itemID, bidAmount, bid_time } = req.body;
 
-  try {
-    const currentItem = await new Promise((resolve, reject) => {
-      db.get("SELECT * FROM items WHERE itemID = ?", [itemID], (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
-    });
-
-    if (parseFloat(bidAmount) <= parseFloat(currentItem.highestPrice)) {
-      res
-        .status(400)
-        .json({
-          error: "Bid amount must be higher than the current highest bid.",
-        });
-      return;
+  db.run(
+    "INSERT INTO bids (bidderID, itemID, bidAmount, bid_time) VALUES (?, ?, ?, ?)",
+    [bidderID, itemID, bidAmount, bid_time],
+    function (err) {
+      if (err) {
+        console.error(err.message);
+        res.status(500).json({ error: "Failed to add bid." });
+      } else {
+        db.run(
+          "UPDATE items SET highestPrice = ?, currentBidderID = ? WHERE itemID = ?",
+          [bidAmount, bidderID, itemID],
+          function (err) {
+            if (err) {
+              console.error(err.message);
+              res.status(500).json({ error: "Failed to update highest bid." });
+            } else {
+              res.status(200).json({ message: "Bid added successfully." });
+            }
+          }
+        );
+      }
     }
-
-    const result = await new Promise((resolve, reject) => {
-      db.run(
-        `INSERT INTO bids (bidderID, itemID, bidAmount, bid_time) VALUES (?, ?, ?, ?)`,
-        [bidderID, itemID, bidAmount, bid_time],
-        function (err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(this);
-          }
-        }
-      );
-    });
-
-    await new Promise((resolve, reject) => {
-      db.run(
-        `UPDATE items SET currentBidAmount = ?, currentBidderID = ?, highestPrice = ? WHERE itemID = ?`,
-        [bidAmount, bidderID, bidAmount, itemID],
-        function (err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(this);
-          }
-        }
-      );
-    });
-
-    res.status(201).json({ bidID: result.lastID });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+  );
 });
 
 app.get("/latest-bids/:itemID", (req, res) => {
