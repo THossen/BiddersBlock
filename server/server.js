@@ -235,7 +235,7 @@ app.get("/latest-bids/:itemID", (req, res) => {
 app.get("/won-auctions/:userID", (req, res) => {
   const { userID } = req.params;
   db.all(
-    'SELECT * FROM items WHERE currentBidderID = ? AND auctionEndTime < datetime("now")',
+    'SELECT itemID, itemPicture, itemName, itemDescription, highestPrice, strftime("%Y-%m-%d %H:%M:%S", auctionEndTime) AS auctionEndTime FROM items WHERE currentBidderID = ? AND auctionEndTime < strftime("%Y-%m-%d %H:%M:%S", "now", "utc")',
     [userID],
     (err, rows) => {
       if (err) {
@@ -247,6 +247,7 @@ app.get("/won-auctions/:userID", (req, res) => {
     }
   );
 });
+
 
 const port = 3001; // server port
 app.listen(port, () => {

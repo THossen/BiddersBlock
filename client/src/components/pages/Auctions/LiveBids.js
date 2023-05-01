@@ -17,7 +17,7 @@ const LiveBids = ({ itemID }) => {
     };
 
     fetchBids();
-    const interval = setInterval(fetchBids, 5000);
+    const interval = setInterval(fetchBids, 1000);
 
     return () => clearInterval(interval);
   }, [itemID]);
