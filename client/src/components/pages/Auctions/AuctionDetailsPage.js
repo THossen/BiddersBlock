@@ -5,9 +5,8 @@ import useCountdown from "../../Providers/useCountdown";
 import LiveBids from "./LiveBids";
 import useAuth from "../../Providers/useAuth";
 import axios from 'axios';
-//import moment from 'moment';
 
-function AuctionDetailsPage({ itemID }) {
+function AuctionDetailsPage() {
   const { id } = useParams();
   const { auctionData } = useContext(AuctionContext);
   const [newBid, setNewBid] = useState("");
@@ -41,11 +40,8 @@ function AuctionDetailsPage({ itemID }) {
     itemName,
     itemDescription,
     startingPrice,
-    currentBidAmount,
     itemPicture,
   } = auction;
-
-  //const moment = require('moment');
 
   const handleBidChange = (event) => {
     setNewBid(event.target.value);
