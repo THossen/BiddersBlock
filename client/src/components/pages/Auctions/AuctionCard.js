@@ -33,7 +33,7 @@ function AuctionCard(props) {
       </div>
       <div className="px-6 pb-6">
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          Highest Bid: ${highestPrice || "None"}
+          Highest Bid: ${highestPrice || " No Bids"}
         </span>
         <p className="text-gray-700 text-sm">
           Starts: {startTime.toLocaleString()} | Ends:{" "}
