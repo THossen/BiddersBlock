@@ -20,11 +20,21 @@ const NavBar = () => {
 
   return (
     <header className="flex justify-between items-center px-4 py-6 font-bold text-2xl text-white bg-violet-950 shadow-lg">
-      <Link to="/" className="hover:text-cyan-500 hover:scale-110 duration-200 ease-in-out">
-        Home
-      </Link>
+      <div className="flex items-center hover:scale-110 duration-200 ease-in-out hover:text-cyan-500">
+        <Link to="/">
+          <img
+            src="Logo's/SingleCube.png"
+            alt="Blue Cube"
+            className="w-10 h-auto"
+          />
+        </Link>
+        <Link to="/">Home</Link>
+      </div>
       <nav className="space-x-4 md:block">
-        <Link to="/Auctions" className="inline-block ml-auto hover:text-cyan-500 hover:scale-110 duration-200 ease-in-out">
+        <Link
+          to="/Auctions"
+          className="inline-block ml-auto hover:text-cyan-500 hover:scale-110 duration-200 ease-in-out"
+        >
           Auctions
         </Link>
         {!user ? (
@@ -38,7 +48,10 @@ const NavBar = () => {
           </>
         ) : (
           <>
-            <Link to="/ProfilePage" className="inline-block p-2 bg-cyan-500 hover:bg-sky-700 rounded-full hover:scale-110 duration-200 ease-in-out">
+            <Link
+              to="/ProfilePage"
+              className="inline-block p-2 bg-cyan-500 hover:bg-sky-700 rounded-full hover:scale-110 duration-200 ease-in-out"
+            >
               <AccountCircle className={profileIconClasses} fontSize="large" />
             </Link>
             <button onClick={handleLogout} className={linkClasses}>
