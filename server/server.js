@@ -108,8 +108,8 @@ app.post('/add-auction', (req, res) => {
     itemPicture,
   } = req.body;
   db.run(
-    'INSERT INTO items (sellerID, itemName, itemDescription, startingPrice, auctionStartTime, auctionEndTime, itemPicture) VALUES (?, ?, ?, ?, ?, ?, ?)', 
-    [sellerID, itemName, itemDescription, startingPrice, auctionStartTime, auctionEndTime, itemPicture],
+    'INSERT INTO items (sellerID, itemName, itemDescription, startingPrice, auctionStartTime, auctionEndTime, currentBidAmount, itemPicture) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', 
+    [sellerID, itemName, itemDescription, startingPrice, auctionStartTime, auctionEndTime, startingPrice, itemPicture],
     function (err) {
       if (err) {
         console.error(err.message);
