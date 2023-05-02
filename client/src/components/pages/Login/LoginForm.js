@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const LoginForm = ({
   username,
   password,
@@ -5,6 +7,12 @@ const LoginForm = ({
   setPassword,
   handleLogin,
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handlePasswordToggle = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <form
       onSubmit={handleLogin}
@@ -30,17 +38,26 @@ const LoginForm = ({
         <label htmlFor="password" className="sr-only">
           Password
         </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border-gray-400 rounded-md shadow-sm w-full p-2 mt-4 text-lg"
-          placeholder="Password"
-        />
+        <div className="relative">
+          <input
+            id="password"
+            name="password"
+            type={showPassword ? "text" : "password"}
+            autoComplete="current-password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border-gray-400 rounded-md shadow-sm w-full p-2 mt-4 text-lg pr-10"
+            placeholder="Password"
+          />
+          <button
+            type="button"
+            onClick={handlePasswordToggle}
+            className="absolute inset-y-5 right-0 px-2 py-2 text-sm font-medium text-gray-700"
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
+        </div>
       </div>
       <div className="flex items-center justify-between mt-8">
         <label htmlFor="remember_me" className="flex items-center">

@@ -14,6 +14,21 @@ const Register = () => {
 
   const handleRegistration = async (e) => {
     e.preventDefault();
+
+    // Email verification
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userEmail)) {
+      setErrorMessage("Please enter a valid email address");
+      return;
+    }
+
+    // Strong password check
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    if (!passwordRegex.test(userPassword)) {
+      setErrorMessage("Please enter a strong password with at least 8 characters, one uppercase letter, one number, and one special character");
+      return;
+    }
+
     if (userPassword !== confirmpassword) {
       setErrorMessage("Passwords do not match");
       return;
