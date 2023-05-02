@@ -19,7 +19,7 @@ function AuctionCard(props) {
     : "hidden";
 
   return (
-    <div className="rounded overflow-hidden shadow-lg h-full relative">
+    <div className="rounded overflow-hidden shadow-lg h-full relative hover:scale-105 duration-200 ease-in-out">
       <img
         className="w-full h-96 object-cover"
         src={itemPicture}
@@ -32,7 +32,7 @@ function AuctionCard(props) {
         <p className="text-gray-700 text-base">{itemDescription}</p>
       </div>
       <div className="px-6 pb-6">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+        <span className="inline-block bg-red-200 rounded-lg px-3 py-1 text-sm font-bold text-black mr-2">
           Highest Bid: ${highestPrice || " No Bids"}
         </span>
         <p className="text-gray-700 text-sm">
