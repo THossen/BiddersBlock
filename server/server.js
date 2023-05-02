@@ -270,6 +270,14 @@ app.post("/add-contact", (req, res) => {
   );
 });
 
+db.all("SELECT * FROM contactForm", [], (err, rows) => {
+  if (err) {
+    console.error(err.message);
+  } else {
+    console.log(rows);
+  }
+});
+
 
 const port = 3001; // server port
 app.listen(port, () => {

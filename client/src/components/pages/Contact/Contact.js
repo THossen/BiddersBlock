@@ -1,80 +1,121 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const styles = {
+  form: {
+    maxWidth: '600px',
+    margin: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px'
+  },
+  formGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px'
+  },
+  errorMessage: {
+    color: 'red'
+  },
+  submitButton: {
+    backgroundColor: 'blue',
+    color: 'white',
+    padding: '10px',
+    borderRadius: '5px'
+  },
+  heading: {
+    textAlign: 'center',
+    fontSize: '2rem'
+  }
+};
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    contactName: "",
+    contactEmail: "",
+    contactNumber: "",
+    contactMessage: "",
+  });
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleInputChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Validate form data
+    if (!formData.contactName || !formData.contactEmail || !formData.contactNumber || !formData.contactMessage) {
+      setErrorMessage("Please fill in all fields");
+      return;
+    }
+
+    // Validate email address
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.contactEmail)) {
+      setErrorMessage("Please enter a valid email address");
+      return;
+    }
+
+    // Validate phone number
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(formData.contactNumber)) {
+      setErrorMessage("Please enter a valid 10-digit phone number");
+      return;
+    }
+
+    try {
+      // Send form data to server
+      await axios.post("http://localhost:3001/add-contact", formData);
+
+      // Clear form and error message
+      setFormData({
+        contactName: "",
+        contactEmail: "",
+        contactNumber: "",
+        contactMessage: "",
+      });
+      setErrorMessage("");
+
+      navigate("/");
+
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Failed to submit form. Please try again later.");
+    }
+  };
+
   return (
-    <div className="bg-gradient-to-t from-cyan-500 to-white min-h-screen flex justify-center items-center">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="flex items-center justify-center">
-            <img
-              src="https://d9j5qtehtodpj.cloudfront.net/thumbnail/?image=4686ab4c1f0311edbfd212d8651c2e35&maxWidth=800&fittedCrop=0&version=199629"
-              alt="Contact Image"
-              className="rounded-full"
-            />
-          </div>
-          <div className="bg-white p-8 rounded-lg shadow-lg">
-            <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
-            <form>
-              <div className="mb-4">
-                <label htmlFor="name" className="block font-bold mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="border rounded-lg px-4 py-2 w-full"
-                  placeholder="Enter your name"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="email" className="block font-bold mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="border rounded-lg px-4 py-2 w-full"
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="number" className="block font-bold mb-2">
-                  Number
-                </label>
-                <input
-                  type="number"
-                  id="number"
-                  name="number"
-                  className="border rounded-lg px-4 py-2 w-full"
-                  placeholder="Enter your number"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="message" className="block font-bold mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="5"
-                  className="border rounded-lg px-4 py-2 w-full"
-                  placeholder="Enter your message"
-                ></textarea>
-              </div>
-              <div className="mt-8">
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300"
-                >
-                  Send
-                </button>
-              </div>
-            </form>
-          </div>
+    <div>
+      <h1 style={styles.heading}>Contact Us</h1>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.formGroup}>
+          <label htmlFor="contactName">Name:</label>
+          <input type="text" id="contactName" name="contactName" value={formData.contactName} onChange={handleInputChange} required placeholder="Enter your name" />
         </div>
-      </div>
+        <div style={styles.formGroup}>
+          <label htmlFor="contactEmail">Email:</label>
+          <input type="email" id="contactEmail" name="contactEmail" value={formData.contactEmail} onChange={handleInputChange} required placeholder="Enter your email" />
+        </div>
+        <div style={styles.formGroup}>
+          <label htmlFor="contactNumber">Phone number:</label>
+          <input type="tel" id="contactNumber" name="contactNumber" value={formData.contactNumber} onChange={handleInputChange} required placeholder="Enter your phone number" />
+        </div>
+        <div style={styles.formGroup}>
+          <label htmlFor="contactMessage">Message:</label>
+          <textarea id="contactMessage" name="contactMessage" value={formData.contactMessage} onChange={handleInputChange} required placeholder="Enter your message"></textarea>
+        </div>
+        {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
+        <button type="submit" style={styles.submitButton}>Submit</button>
+      </form>
     </div>
   );
 };
