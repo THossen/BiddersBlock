@@ -229,6 +229,25 @@ app.get("/won-auctions/:userID", (req, res) => {
   );
 });
 
+app.post("/add-contact", (req, res) => {
+  const { contactName, contactEmail, contactNumber, contactMessage } = req.body;
+
+  db.run(
+    "INSERT INTO contactForm (contactName, contactEmail, contactNumber, contactMessage) VALUES (?, ?, ?, ?)",
+    [contactName, contactEmail, contactNumber, contactMessage],
+    function (err) {
+      if (err) {
+        console.error(err.message);
+        res.status(500).json({ error: "Failed to add contact request." });
+      } else {
+        console.log(
+          `Contact for ${contactName} added into contactForm.`
+        );
+      }
+    }
+  );
+});
+
 
 const port = 3001; // server port
 app.listen(port, () => {

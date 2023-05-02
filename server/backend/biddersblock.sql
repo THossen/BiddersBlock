@@ -70,6 +70,14 @@ CREATE TABLE IF NOT EXISTS itemCategory
     FOREIGN KEY (categoryID) REFERENCES category (categoryID)
 );
 
+CREATE TABLE IF NOT EXISTS contactForm(
+    contactID       INTEGER    PRIMARY KEY      AUTOINCREMENT,
+    contactName     TEXT    NOT NULL,
+    contactEmail    TEXT    NOT NULL,
+    contactNumber   INTEGER NOT NULL,
+    contactMessage  TEXT    NOT NULL
+);
+
 INSERT OR REPLACE INTO users (userName, userEmail, userPassword, userFirstName, userLastName, userAddress)
 VALUES 
     ('johndoe', 'johndoe@example.com', 'password', 'John', 'Doe', '123 Main St'),
