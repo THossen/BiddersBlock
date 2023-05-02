@@ -168,6 +168,28 @@ app.post("/add-auction", (req, res) => {
   );
 });
 
+app.post("/delete-auction/:itemID", (req, res) => {
+  console.log("Request data", req.body);
+  const {
+    itemID
+  } = req.params;
+  db.run(
+    "DELETE FROM items WHERE itemID = ?",
+    [itemID],
+    function (err) {
+      if (err) {
+        console.error(err.message);
+        res.status(500).json({ error: "Failed to delete auction." });
+      } else {
+        console.log(
+          `Auction for ${itemID} deleted by admin.`
+        );
+        res.status(200).json({ message: "Auction delted successfully." });
+      }
+    }
+  );
+});
+
 app.post("/add-bid", (req, res) => {
   const { bidderID, itemID, bidAmount, bid_time } = req.body;
 
