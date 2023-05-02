@@ -65,27 +65,38 @@ app.post("/register", (req, res) => {
     userLastname,
     userAddress,
   } = req.body;
-  db.run(
-    "INSERT INTO users (userName, userEmail, userPassword, userFirstname, userLastname, userAddress) VALUES (?, ?, ?, ?, ?, ?)",
-    [
-      userName,
-      userEmail,
-      userPassword,
-      userFirstname,
-      userLastname,
-      userAddress,
-    ],
-    function (err) {
-      if (err) {
-        console.error(err.message);
-        res.status(500).json({ error: "Failed to register user." });
-      } else {
-        console.log(`User ${userName} is now registered.`);
-        res.status(200).json({ message: "User registered successfully." });
-      }
+
+  db.get("SELECT userName FROM users WHERE userName = ?", [userName], (err, row) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: "Failed to register user." });
+    } else if (row) {
+      res.status(409).json({ error: "Username already exists." });
+    } else {
+      db.run(
+        "INSERT INTO users (userName, userEmail, userPassword, userFirstname, userLastname, userAddress) VALUES (?, ?, ?, ?, ?, ?)",
+        [
+          userName,
+          userEmail,
+          userPassword,
+          userFirstname,
+          userLastname,
+          userAddress,
+        ],
+        function (err) {
+          if (err) {
+            console.error(err.message);
+            res.status(500).json({ error: "Failed to register user." });
+          } else {
+            console.log(`User ${userName} is now registered.`);
+            res.status(200).json({ message: "User registered successfully." });
+          }
+        }
+      );
     }
-  );
+  });
 });
+
 
 app.post("/login", (req, res) => {
   const { userName, userPassword } = req.body;
