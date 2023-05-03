@@ -278,6 +278,20 @@ db.all("SELECT * FROM contactForm", [], (err, rows) => {
   }
 });
 
+app.get("/user-role/:userID", (req, res) => {
+  const { userID } = req.params;
+  db.all(
+    'SELECT roleID FROM userRoles WHERE userID = ?',
+    [userID],
+    (err, rows) => {
+      if (err) {
+        console.error(err.message);
+      } else {
+        console.log(rows);
+      }
+    }
+  );
+});
 
 const port = 3001; // server port
 app.listen(port, () => {
