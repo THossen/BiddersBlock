@@ -4,7 +4,7 @@ import { AuctionContext } from "../../Providers/AuctionContext";
 import useCountdown from "../../Providers/useCountdown";
 import LiveBids from "./LiveBids";
 import useAuth from "../../Providers/useAuth";
-import axios from 'axios';
+import axios from "axios";
 
 function AuctionDetailsPage() {
   const { id } = useParams();
@@ -36,12 +36,7 @@ function AuctionDetailsPage() {
     return <div>Auction not found</div>;
   }
 
-  const {
-    itemName,
-    itemDescription,
-    startingPrice,
-    itemPicture,
-  } = auction;
+  const { itemName, itemDescription, startingPrice, itemPicture } = auction;
 
   const handleBidChange = (event) => {
     setNewBid(event.target.value);
@@ -59,11 +54,11 @@ function AuctionDetailsPage() {
     }
     console.log(`Placing bid of ${newBid} for auction ${auction.itemID}`);
     try {
-      const response = await axios.post('http://localhost:3001/add-bid', {
+      const response = await axios.post("http://localhost:3001/add-bid", {
         bidderID: user.userID,
         itemID: auction.itemID,
         bidAmount: newBid,
-        bid_time: new Date().toLocaleString() + ""
+        bid_time: new Date().toLocaleString() + "",
       });
       console.log(response.data);
       setHighestPrice(newBid);
@@ -72,55 +67,60 @@ function AuctionDetailsPage() {
       console.error(error);
     }
   };
-  
 
   return (
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="relative">
-          <img
-            className="w-full h-full object-cover rounded-lg shadow-md"
-            src={itemPicture}
-            alt={itemName}
-          />
-        </div>
-        <div className="bg-violet-950 p-8 rounded-lg">
-          <h1 className="text-4xl font-bold text-white">{itemName}</h1>
-          <p className="mt-4 text-xl text-white">{itemDescription}</p>
-          <p className="mt-8 text-3xl font-bold text-yellow-400">
-            Starting Price: ${startingPrice}
-          </p>
-          <p className="mt-4 text-2xl font-bold text-green-400">
-            Highest bid: ${highestPrice}
-          </p>
-          <p className="mt-4 text-2xl font-bold text-red-500">
-            Time left: {timeLeft}
-          </p>
-          <form className="mt-8 flex items-center" onSubmit={handleBidSubmit}>
-            <label htmlFor="bid-amount" className="text-xl mr-4 text-white">
-              Place a Bid:
-            </label>
-            <div className="relative flex-1">
-              <input
-                id="bid-amount"
-                type="number"
-                className="block w-full pl-10 pr-3 py-2 border-2 border-gray-200 rounded-md leading-5 bg-white text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-blue-500"
-                placeholder="Enter bid amount"
-                value={newBid}
-                onChange={handleBidChange}
-                required
-              />
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <span className="text-gray-500 sm:text-sm">$</span>
-              </div>
+      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="lg:col-span-1">
+            <img
+              className="w-full h-full object-cover"
+              src={itemPicture}
+              alt={itemName}
+            />
+          </div>
+          <div className="bg-gradient-to-br from-violet-800 via-violet-900 to-indigo-900 p-8 rounded-r-lg flex flex-col justify-between shadow-lg lg:col-span-1">
+            <div>
+              <h1 className="text-4xl font-bold text-white">{itemName}</h1>
+              <p className="mt-4 text-xl text-white">{itemDescription}</p>
             </div>
-            <button
-              type="submit"
-              className="ml-4 py-2 px-4 font-bold rounded-full text-white bg-cyan-500 hover:bg-sky-700 hover:scale-110 duration-200 ease-in-out"
-            >
-              Submit Bid
-            </button>
-          </form>
+            <div>
+              <p className="mt-8 text-3xl font-bold text-yellow-400">
+                Starting Price: ${startingPrice}
+              </p>
+              <p className="mt-4 text-2xl font-bold text-green-400">
+                Highest bid: ${highestPrice}
+              </p>
+              <p className="mt-4 text-2xl font-bold text-red-500">
+                Time left: {timeLeft}
+              </p>
+            </div>
+            <form className="mt-8 flex items-center" onSubmit={handleBidSubmit}>
+              <label htmlFor="bid-amount" className="text-xl mr-4 text-white">
+                Place a Bid:
+              </label>
+              <div className="relative flex-1">
+                <input
+                  id="bid-amount"
+                  type="number"
+                  className="block w-full md:w-1/2 lg:w-full pl-10 pr-3 py-2 border-2 border-gray-200 rounded-md leading-5 bg-white text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="Enter bid amount"
+                  value={newBid}
+                  onChange={handleBidChange}
+                  required
+                />
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <span className="text-gray-500 sm:text-sm">$</span>
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="ml-4 py-2 px-4 font-bold rounded-full text-white bg-cyan-500 hover:bg-sky-700 hover:scale-110 duration-200 ease-in-out"
+              >
+                Submit Bid
+              </button>
+            </form>
+          </div>
         </div>
       </div>
       <div className="mt-8">

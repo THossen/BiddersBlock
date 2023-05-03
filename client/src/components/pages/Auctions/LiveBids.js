@@ -37,7 +37,7 @@ const LiveBids = ({ itemID }) => {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <h3 className="text-2xl font-semibold text-center mb-5">Latest Bids:</h3>
+      <h3 className="text-2xl font-semibold text-center mb-5">Latest Bids</h3>
       <div className="space-y-3">
         {bids.map((bid) => (
           <div
