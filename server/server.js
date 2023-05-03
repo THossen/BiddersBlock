@@ -270,12 +270,14 @@ app.post("/add-contact", (req, res) => {
   );
 });
 
-db.all("SELECT * FROM contactForm", [], (err, rows) => {
-  if (err) {
-    console.error(err.message);
-  } else {
-    console.log(rows);
-  }
+app.get("/contact-requests", (req, res) => {
+  db.all("SELECT * FROM contactForm", [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    } else {
+      console.log(rows);
+    }
+  });
 });
 
 app.get("/user-role/:userID", (req, res) => {
