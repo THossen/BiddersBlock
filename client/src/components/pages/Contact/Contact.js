@@ -74,7 +74,7 @@ const Contact = () => {
 
     try {
       // Send form data to server
-      await axios.post("http://localhost:3001/add-contact", formData);
+      axios.post("http://localhost:3001/add-contact", formData);
 
       // Clear form and error message
       setFormData({
@@ -84,6 +84,8 @@ const Contact = () => {
         contactMessage: "",
       });
       setErrorMessage("");
+
+      navigate("/")
 
     } catch (error) {
       console.error(error);
@@ -112,7 +114,7 @@ const Contact = () => {
           <textarea id="contactMessage" name="contactMessage" value={formData.contactMessage} onChange={handleInputChange} required placeholder="Enter your message"></textarea>
         </div>
         {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
-        <button type="submit" style={styles.submitButton} onClick={() => navigate("/")}>Submit</button>
+        <button type="submit" style={styles.submitButton}>Submit</button>
       </form>
     </div>
   );
