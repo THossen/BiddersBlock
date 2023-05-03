@@ -85,8 +85,6 @@ const Contact = () => {
       });
       setErrorMessage("");
 
-      navigate("/");
-
     } catch (error) {
       console.error(error);
       setErrorMessage("Failed to submit form. Please try again later.");
@@ -114,7 +112,7 @@ const Contact = () => {
           <textarea id="contactMessage" name="contactMessage" value={formData.contactMessage} onChange={handleInputChange} required placeholder="Enter your message"></textarea>
         </div>
         {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
-        <button type="submit" style={styles.submitButton}>Submit</button>
+        <button type="submit" style={styles.submitButton} onClick={() => navigate("/")}>Submit</button>
       </form>
     </div>
   );
