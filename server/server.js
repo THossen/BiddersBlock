@@ -120,7 +120,7 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/auctions", (req, res) => {
-  db.all("SELECT * FROM items", (err, rows) => {
+  db.all("SELECT * FROM items ORDER BY auctionEndTime DESC", (err, rows) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: "Failed to fetch auctions." });

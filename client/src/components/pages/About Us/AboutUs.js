@@ -47,24 +47,24 @@ const AboutUs = () => {
         <ul style={styles.teamMembersList}>
           <li style={styles.teamMemberCard}>
             <h2 style={styles.teamMemberName}>Tanvir Hossen</h2>
-            <p style={styles.teamMemberBio}>Tanvir is our leader who dictated which team members do what. He also focused on front and backend.</p>
+            <p style={styles.teamMemberBio}>Our leader who dictated which team members do what. He also focused on front and backend.</p>
           </li>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <li style={styles.teamMemberCard}>
-              <h2 style={styles.teamMemberName}>Issac Ortega</h2>
-              <p style={styles.teamMemberBio}>Issac focused mainly on the backend.</p>
+              <h2 style={styles.teamMemberName}>Isaac Ortega</h2>
+              <p style={styles.teamMemberBio}>Focused mainly on the backend.</p>
             </li>
             <li style={styles.teamMemberCard}>
               <h2 style={styles.teamMemberName}>Robert Chu</h2>
-              <p style={styles.teamMemberBio}>Robert focused mainly on the backend.</p>
+              <p style={styles.teamMemberBio}>Focused mainly on the backend.</p>
             </li>
             <li style={styles.teamMemberCard}>
               <h2 style={styles.teamMemberName}>Darnell Voltaire</h2>
-              <p style={styles.teamMemberBio}>Darnell focused on frontend.</p>
+              <p style={styles.teamMemberBio}>Focused on frontend.</p>
             </li>
             <li style={styles.teamMemberCard}>
               <h2 style={styles.teamMemberName}>Saiyedal Alam</h2>
-              <p style={styles.teamMemberBio}>Saiyedal focused mainly on frontend.</p>
+              <p style={styles.teamMemberBio}>Focused mainly on frontend.</p>
             </li>
           </div>
         </ul>
