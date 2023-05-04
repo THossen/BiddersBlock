@@ -18,9 +18,9 @@ const AuctionCarousel = () => {
         dynamicHeight
         className="carousel-control-center rounded-lg shadow-lg"
         autoPlay
-        interval={3000} // Change this value to adjust the interval between transitions (in milliseconds)
+        interval={3000} 
         stopOnHover={false}
-        transitionTime={500} // Adjust this value to change the transition time (in milliseconds)
+        transitionTime={500}
       >
         {auctionData.slice(0, 5).map((auction) => (
           <div key={auction.itemID} className="relative">
