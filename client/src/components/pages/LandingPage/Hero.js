@@ -6,7 +6,7 @@ const subheading =
 
 const Hero = () => {
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-b from-violet-800 to-pink-500">
+    <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-b from-violet-800 via-pink-500 to-white">
       <img
         src="Logo's/SingleCube.png"
         alt="Blue Cube"
