@@ -1,5 +1,4 @@
-// components/AuctionCarousel.js
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { AuctionContext } from "../../Providers/AuctionContext";
