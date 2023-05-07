@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose();
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -66,33 +67,42 @@ app.post("/register", (req, res) => {
     userAddress,
   } = req.body;
 
-  db.get("SELECT userName FROM users WHERE userName = ?", [userName], (err, row) => {
+  // Hash the user's password
+  const saltRounds = 10;
+  bcrypt.hash(userPassword, saltRounds, function(err, hashPassword) {
     if (err) {
-      console.error(err.message);
+      console.log(err);
       res.status(500).json({ error: "Failed to register user." });
-    } else if (row) {
-      res.status(409).json({ error: "Username already exists." });
     } else {
-      db.run(
-        "INSERT INTO users (userName, userEmail, userPassword, userFirstname, userLastname, userAddress) VALUES (?, ?, ?, ?, ?, ?)",
-        [
-          userName,
-          userEmail,
-          userPassword,
-          userFirstname,
-          userLastname,
-          userAddress,
-        ],
-        function (err) {
-          if (err) {
-            console.error(err.message);
-            res.status(500).json({ error: "Failed to register user." });
-          } else {
-            console.log(`User ${userName} is now registered.`);
-            res.status(200).json({ message: "User registered successfully." });
-          }
+      db.get("SELECT userName FROM users WHERE userName = ?", [userName], (err, row) => {
+        if (err) {
+          console.error(err.message);
+          res.status(500).json({ error: "Failed to register user." });
+        } else if (row) {
+          res.status(409).json({ error: "Username already exists." });
+        } else {
+          db.run(
+            "INSERT INTO users (userName, userEmail, userPassword, userFirstname, userLastname, userAddress) VALUES (?, ?, ?, ?, ?, ?)",
+            [
+              userName,
+              userEmail,
+              hashPassword,
+              userFirstname,
+              userLastname,
+              userAddress,
+            ],
+            function (err) {
+              if (err) {
+                console.error(err.message);
+                res.status(500).json({ error: "Failed to register user." });
+              } else {
+                console.log(`User ${userName} is now registered.`);
+                res.status(200).json({ message: "User registered successfully." });
+              }
+            }
+          );
         }
-      );
+      });
     }
   });
 });
@@ -101,23 +111,29 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res) => {
   const { userName, userPassword } = req.body;
   db.get(
-    "SELECT * FROM users WHERE userName = ? AND userPassword = ?",
-    [userName, userPassword],
-    (err, row) => {
+    "SELECT * FROM users WHERE userName = ?",
+    [userName],
+    async (err, row) => {
       if (err) {
         console.error(err.message);
         res.status(500).json({ error: "Failed to login." });
       } else if (!row) {
         res.status(401).json({ error: "Invalid credentials." });
       } else {
-        console.log(`User ${userName} logged in.`);
-        res
-          .status(200)
-          .json({ message: "User logged in successfully.", user: row });
+        const passwordMatch = await bcrypt.compare(userPassword, row.userPassword);
+        if (passwordMatch) {
+          console.log(`User ${userName} logged in.`);
+          res
+            .status(200)
+            .json({ message: "User logged in successfully.", user: row });
+        } else {
+          res.status(401).json({ error: "Invalid credentials." });
+        }
       }
     }
   );
 });
+
 
 app.get("/auctions", (req, res) => {
   db.all("SELECT * FROM items ORDER BY auctionEndTime DESC", (err, rows) => {
