@@ -52,6 +52,10 @@ function AuctionDetailsPage() {
       alert(`The bid should be at least $1 more than the current highest bid`);
       return;
     }
+    if (user.userID === auction.sellerID) {
+      alert(`You cannot bid on your own auction`);
+      return;
+    }
     console.log(`Placing bid of ${newBid} for auction ${auction.itemID}`);
     try {
       const response = await axios.post("http://localhost:3001/add-bid", {
