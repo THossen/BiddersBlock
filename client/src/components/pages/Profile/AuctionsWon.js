@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import useAuth from '../../Providers/useAuth';
+import useAuth from '../../../Providers/useAuth';
 import AuctionsWonCard from './AuctionsWonCard';
 
 const AuctionsWon = () => {

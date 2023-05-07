@@ -2,8 +2,8 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import UserInfo from "./UserInfo";
 import Sidebar from "./Sidebar";
 import { useContext } from "react";
-import { AuctionContext } from "../../Providers/AuctionContext";
-import useAuth from "../../Providers/useAuth";
+import { AuctionContext } from "../../../Providers/AuctionContext";
+import useAuth from "../../../Providers/useAuth";
 
 const AdminProfilePage = () => {
   const { fetchData } = useContext(AuctionContext);

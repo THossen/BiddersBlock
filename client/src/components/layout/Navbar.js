@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useAuth from "../Providers/useAuth";
+import useAuth from "../../Providers/useAuth";
 import { useNavigate } from "react-router-dom";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 

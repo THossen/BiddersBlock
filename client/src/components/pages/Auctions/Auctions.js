@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import AuctionCard from "./AuctionCard";
 import { Link } from "react-router-dom";
-import { AuctionContext } from "../../Providers/AuctionContext";
+import { AuctionContext } from "../../../Providers/AuctionContext";
 
 const Auctions = () => {
   const { auctionData, fetchData } = useContext(AuctionContext);

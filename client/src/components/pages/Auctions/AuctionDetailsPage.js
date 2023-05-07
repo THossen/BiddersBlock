@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
-import { AuctionContext } from "../../Providers/AuctionContext";
-import useCountdown from "../../Providers/useCountdown";
+import { AuctionContext } from "../../../Providers/AuctionContext";
+import useCountdown from "../../../Providers/useCountdown";
 import LiveBids from "./LiveBids";
-import useAuth from "../../Providers/useAuth";
+import useAuth from "../../../Providers/useAuth";
 import axios from "axios";
 
 function AuctionDetailsPage() {

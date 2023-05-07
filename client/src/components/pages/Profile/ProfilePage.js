@@ -4,8 +4,8 @@ import AuctionsWon from "./AuctionsWon";
 import AddAuctionForm from "../Auctions/AddAuctionForm";
 import Sidebar from "./Sidebar";
 import { useContext } from "react";
-import { AuctionContext } from "../../Providers/AuctionContext";
-import useAuth from "../../Providers/useAuth";
+import { AuctionContext } from "../../../Providers/AuctionContext";
+import useAuth from "../../../Providers/useAuth";
 
 const ProfilePage = () => {
   const { fetchData } = useContext(AuctionContext);

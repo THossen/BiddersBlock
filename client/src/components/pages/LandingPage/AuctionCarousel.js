@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { AuctionContext } from "../../Providers/AuctionContext";
+import { AuctionContext } from "../../../Providers/AuctionContext";
 
 const AuctionCarousel = () => {
   const { auctionData } = useContext(AuctionContext);

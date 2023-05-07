@@ -1,4 +1,4 @@
-import useAuth from '../../Providers/useAuth';
+import useAuth from '../../../Providers/useAuth';
 import { FaUser, FaMapMarkerAlt } from 'react-icons/fa';
 import { Typography, Paper, Grid, Avatar } from '@mui/material';
 import { styled } from '@mui/system';
