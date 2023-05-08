@@ -23,9 +23,12 @@ const Register = () => {
     }
 
     // Strong password check
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     if (!passwordRegex.test(userPassword)) {
-      setErrorMessage("Please enter a strong password with at least 8 characters, one uppercase letter, one number, and one special character");
+      setErrorMessage(
+        "Please enter a strong password with at least 8 characters, one uppercase letter, one number, and one special character"
+      );
       return;
     }
 
@@ -36,17 +39,16 @@ const Register = () => {
 
     try {
       const response = await axios.post("http://localhost:3001/register", {
-        userName, 
-        userEmail, 
-        userPassword, 
-        userFirstname, 
-        userLastname, 
-        userAddress
+        userName,
+        userEmail,
+        userPassword,
+        userFirstname,
+        userLastname,
+        userAddress,
       });
 
       // Redirect to login page upon successful registration
       window.location.href = "/LoginPage";
-      
     } catch (error) {
       setErrorMessage(error.response.data.message);
     }
